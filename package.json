@@ -1,9 +1,9 @@
 {
   "name": "TextSearch",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A small utility to search text in javascript objects",
   "bin": {
-    "hookerjs": "index.js"
+    "src": "search.js"
   },
   "scripts": {
     "test": "gulp",
