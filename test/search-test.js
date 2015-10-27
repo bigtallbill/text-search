@@ -10,67 +10,46 @@ describe('Search', function() {
     searchInstance = new Search;
   });
 
-  describe('searchString', function() {
-    it('should find a term in a string', function() {
-      var result = searchInstance.searchString('term', 'source string with term');
-      should(result).be.true();
+  describe('sortByScore', function () {
+    it('should sort the terms in order of relevancy score', function () {
+      var documents = searchInstance.sortByScore('my horse', [
+        {text: 'my fancy horse'},
+        {text: 'my my my my'},
+        {text: 'horse horse horse horse'},
+        {text: 'horses are fancy my horse is particularly great, i love my horse'},
+        {text: 'My Horse heralds a new generation of cloud-based social gaming on iOS. Care for your horse through grooming, treating and feeding. Equip it with professional saddles and tack before heading out to compete. Build a bond with your realistic horse through performing a wide range of interactive 3D activities and, when you’re ready, there are 8 different breeds to collect and look after!'}
+      ], 'text');
+
+      should(documents[0].text).be.exactly('horses are fancy my horse is particularly great, i love my horse');
     });
-  });
 
-  describe('countWords', function() {
-    it('should count the words in the given string', function() {
-      var count = searchInstance.countWords('horse', 'i love horses they are great, horse horse horse');
-      should(count).be.exactly(3);
-    });
-  });
+    it('should sort the first matching document to the top for a duplicate term', function () {
 
-  describe('countWordsInSet', function() {
-    it('should return a count of all the words in the given set', function() {
-      var result = searchInstance.countWordsInSet(
-          ['horse', 'coffee'],
-          [
-            'the horse was drinking coffee',
-            'coffee is healthy in small doses',
-            'horses are hillarious'
-          ]
-      );
+      var searchDocuments = [
+        {text: 'Custom Keyboard Progress'},
+        {text: 'Custom Keyboard Resources'},
+        {text: 'Serial Improvement'},
+        {text: 'Development'},
+        {text: 'Gaming Discussions'},
+        {text: 'Favourite Games'},
+        {text: 'Music'},
+        {text: 'Favourite Videos'},
+        {text: 'Age of Plenty'},
+        {text: 'Cool Tech'},
+        {text: 'Cool Github Repos'},
+        {text: 'Funny Things'},
+        {text: 'Technology'},
+        {text: 'Polymer'}
+      ];
 
-      should(result).have.ownProperty('horse');
-      should(result).have.ownProperty('coffee');
-      should(result).have.ownProperty('total');
+      var documents = searchInstance.sortByScore('custom', searchDocuments, 'text');
+      should(documents[0].text).be.exactly('Custom Keyboard Progress');
 
-      should(result.horse).be.exactly(1);
-      should(result.coffee).be.exactly(2);
-      should(result.total).be.exactly(3);
-    });
-  });
+      var documents = searchInstance.sortByScore('cool', searchDocuments, 'text');
+      should(documents[0].text).be.exactly('Cool Tech');
 
-  describe('scoreSets', function() {
-    it('should generate a matching score for each set', function() {
-      var result = searchInstance.scoreSets(
-          'fancy pants',
-          [
-            [
-              'mr fancy had lots of pants',
-              'the pants were really fancy'
-            ],
-            [
-              'pants are good in the cold'
-            ],
-            [
-              'jesus christ monkey balls'
-            ],
-            [
-              'premium pants at jim\'s fancy pants shop'
-            ]
-          ]
-      );
-
-      should(result.length).be.exactly(4);
-      should(result[0]).be.exactly(4);
-      should(result[1]).be.exactly(1);
-      should(result[2]).be.exactly(0);
-      should(result[3]).be.exactly(3);
+      var documents = searchInstance.sortByScore('tech', searchDocuments, 'text');
+      should(documents[0].text).be.exactly('Cool Tech');
     });
   });
 });
