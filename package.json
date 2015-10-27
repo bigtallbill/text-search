@@ -1,10 +1,8 @@
 {
-  "name": "TextSearch",
+  "name": "text-search",
   "version": "0.0.1",
   "description": "A small utility to search text in javascript objects",
-  "bin": {
-    "src": "search.js"
-  },
+  "main": "src/search.js",
   "scripts": {
     "test": "gulp",
     "start": "gulp && gulp watch"
@@ -15,6 +13,10 @@
     "mocha": "^2.2.5",
     "should": "^7.0.2"
   },
-  "author": "bigtallbill@gmail.com",
+  "author": {
+    "name": "Bill Nunney",
+    "email": "bigtallbill@gmail.com",
+    "url": "http://serialimprovement.com"
+  },
   "license": "ISC"
 }
