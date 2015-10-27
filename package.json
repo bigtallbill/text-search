@@ -1,0 +1,20 @@
+{
+  "name": "TextSearch",
+  "version": "1.0.0",
+  "description": "A small utility to search text in javascript objects",
+  "bin": {
+    "hookerjs": "index.js"
+  },
+  "scripts": {
+    "test": "gulp",
+    "start": "gulp && gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.1.2",
+    "mocha": "^2.2.5",
+    "should": "^7.0.2"
+  },
+  "author": "bigtallbill@gmail.com",
+  "license": "ISC"
+}
