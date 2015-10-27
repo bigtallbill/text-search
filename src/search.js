@@ -1,7 +1,7 @@
 var Document = require('./document');
 
 var Search = function() {
-
+  this.lastMatchedDocuments = [];
 };
 
 Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
@@ -23,6 +23,8 @@ Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
 
     return 0;
   });
+
+  this.lastMatchedDocuments = scored;
 
   scored = scored.map(function (doc) {
     return doc.document;
