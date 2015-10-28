@@ -25,6 +25,12 @@ Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
     return 0;
   });
 
+  if (this._getOpt('filter_non_matching')) {
+    scored = scored.filter(function (doc) {
+      return doc.term.inversDocumentFrequency > 0
+    });
+  }
+
   this.lastMatchedDocuments = scored;
 
   scored = scored.map(function (doc) {

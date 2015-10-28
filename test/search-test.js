@@ -63,5 +63,29 @@ describe('Search', function() {
       var documents = searchInstance.sortByScore('tech', searchDocuments, 'text');
       should(documents[0].text).be.exactly('Cool Tech');
     });
+
+    it('will filter non matching elements', function () {
+
+      var searchDocuments = [
+        {text: 'Custom Keyboard Progress'},
+        {text: 'Custom Keyboard Resources'},
+        {text: 'Serial Improvement'},
+        {text: 'Development'},
+        {text: 'Gaming Discussions'},
+        {text: 'Favourite Games'},
+        {text: 'Music'},
+        {text: 'Favourite Videos'},
+        {text: 'Age of Plenty'},
+        {text: 'Cool Tech'},
+        {text: 'Cool Github Repos'},
+        {text: 'Funny Things'},
+        {text: 'Technology'},
+        {text: 'Polymer'}
+      ];
+
+      searchInstance = new Search({filter_non_matching: true});
+      var documents = searchInstance.sortByScore('custom', searchDocuments, 'text');
+      should(documents.length).be.exactly(2);
+    });
   });
 });
