@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A small utility to search text in javascript objects",
   "main": "src/search.js",
+  "repository": "https://github.com/bigtallbill/text-search",
   "scripts": {
     "test": "gulp",
     "start": "gulp && gulp watch"
