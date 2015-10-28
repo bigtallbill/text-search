@@ -1,6 +1,6 @@
 {
   "name": "text-search",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A small utility to search text in javascript objects",
   "main": "src/search.js",
   "scripts": {

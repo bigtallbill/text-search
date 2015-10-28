@@ -1,6 +1,7 @@
 var Document = require('./document');
 
-var Search = function() {
+var Search = function(options) {
+  this.options = options || {};
   this.lastMatchedDocuments = [];
 };
 
@@ -24,6 +25,12 @@ Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
     return 0;
   });
 
+  if (this._getOpt('filter_non_matching')) {
+    scored = scored.filter(function (doc) {
+      return doc.term.inversDocumentFrequency > 0
+    });
+  }
+
   this.lastMatchedDocuments = scored;
 
   scored = scored.map(function (doc) {
@@ -31,6 +38,20 @@ Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
   });
 
   return scored;
+};
+
+/**
+ * Gets the provided option
+ * @param opt
+ * @returns {*|null} The options value or null when not found
+ * @private
+ */
+Search.prototype._getOpt = function (opt) {
+  if (this.options.hasOwnProperty(opt)) {
+    return this.options[opt];
+  } else {
+    return null;
+  }
 };
 
 module.exports = Search;
