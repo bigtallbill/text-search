@@ -7,6 +7,10 @@ var Search = function(options) {
 
 Search.prototype.sortByScore = function (searchTerm, documents, targetKey) {
 
+  if (searchTerm.length === 0) {
+    return documents;
+  }
+
   var scored = documents.map(function (doc) {
     return new Document(searchTerm, doc, documents, targetKey);
   });
